@@ -1,14 +1,14 @@
-package br.com.cleyson.loginandauthenticatedarea
+package br.com.cleyson.loginandauthenticatedarea.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 
-// Define navigation routes
 object NavRoutes {
-    const val LOGIN_REGISTER_ROUTE = "login_register"
-    const val AUTHENTICATED_ROUTE = "authenticated"
+    const val LOGIN_REGISTER_ROUTE = "loginRoute"
+    const val AUTHENTICATED_ROUTE = "authenticatedRoute"
+    const val MAIN_ROUTE = "mainRoute"
 }
 
 @Composable
@@ -19,7 +19,6 @@ fun AppNavigation(
 ) {
     val navController = rememberNavController()
 
-    // Define the navigation graph
     NavHost(
         navController = navController,
         startDestination = if (isLoggedIn) NavRoutes.AUTHENTICATED_ROUTE else NavRoutes.LOGIN_REGISTER_ROUTE

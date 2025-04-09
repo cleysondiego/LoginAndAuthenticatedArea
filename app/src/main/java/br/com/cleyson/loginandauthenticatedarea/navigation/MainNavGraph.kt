@@ -1,4 +1,4 @@
-package br.com.cleyson.loginandauthenticatedarea
+package br.com.cleyson.loginandauthenticatedarea.navigation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -21,24 +21,20 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-
-// Main navigation routes for authenticated users
-object MainRoutes {
-    const val HOME = "home"
-    const val SETTINGS = "settings"
-    const val MAIN_ROUTE = "main_route" // New route for the main screen
-}
+import br.com.cleyson.loginandauthenticatedarea.Screen
+import br.com.cleyson.loginandauthenticatedarea.screens.HomeScreen
+import br.com.cleyson.loginandauthenticatedarea.screens.SettingsScreen
 
 // Bottom navigation items
 sealed class BottomNavItem(val route: String, val icon: @Composable () -> Unit, val title: String) {
     object Home : BottomNavItem(
-        route = MainRoutes.HOME,
+        route = Screen.HomeScreen.route,
         icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
         title = "Home"
     )
 
     object Settings : BottomNavItem(
-        route = MainRoutes.SETTINGS,
+        route = Screen.SettingsScreen.route,
         icon = { Icon(Icons.Default.Settings, contentDescription = "Settings") },
         title = "Settings"
     )
@@ -49,10 +45,10 @@ fun NavGraphBuilder.mainNavGraph(
     onLogout: () -> Unit
 ) {
     navigation(
-        startDestination = MainRoutes.MAIN_ROUTE, // Change to use our new route
+        startDestination = NavRoutes.MAIN_ROUTE,
         route = NavRoutes.AUTHENTICATED_ROUTE
     ) {
-        composable(route = MainRoutes.MAIN_ROUTE) { // Use the new route here
+        composable(route = NavRoutes.MAIN_ROUTE) {
             MainNavHost(
                 onLogout = {
                     onLogout()
@@ -83,14 +79,14 @@ fun MainNavHost(onLogout: () -> Unit) {
     ) { paddingValues ->
         NavHost(
             navController = navController,
-            startDestination = MainRoutes.HOME,
+            startDestination = Screen.HomeScreen.route,
             modifier = Modifier.padding(paddingValues)
         ) {
-            composable(MainRoutes.HOME) {
+            composable(Screen.HomeScreen.route) {
                 HomeScreen()
             }
 
-            composable(MainRoutes.SETTINGS) {
+            composable(Screen.SettingsScreen.route) {
                 SettingsScreen(onLogoutClicked = onLogout)
             }
         }

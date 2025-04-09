@@ -10,6 +10,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import br.com.cleyson.loginandauthenticatedarea.navigation.AppNavigation
 import br.com.cleyson.loginandauthenticatedarea.ui.theme.LoginAndAuthenticatedAreaTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +19,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             LoginAndAuthenticatedAreaTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -26,7 +26,6 @@ class MainActivity : ComponentActivity() {
                     // Track authentication state
                     val isLoggedIn = remember { mutableStateOf(false) }
 
-                    // Set up navigation
                     AppNavigation(
                         isLoggedIn = isLoggedIn.value,
                         onLogin = { isLoggedIn.value = true },
